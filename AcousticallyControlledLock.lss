@@ -1,0 +1,610 @@
+
+Zamek_kodowy.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000002ba  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000004  00800060  000002ba  0000034e  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000009  00800064  00800064  00000352  2**0
+                  ALLOC
+  3 .debug_aranges 00000020  00000000  00000000  00000352  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 000000be  00000000  00000000  00000372  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000380  00000000  00000000  00000430  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000001a0  00000000  00000000  000007b0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000032f  00000000  00000000  00000950  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000a0  00000000  00000000  00000c80  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000012c  00000000  00000000  00000d20  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000119  00000000  00000000  00000e4c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000060  00000000  00000000  00000f65  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2d c0       	rjmp	.+90     	; 0x5e <__vector_1>
+   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	24 c0       	rjmp	.+72     	; 0x5c <__bad_interrupt>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	ea eb       	ldi	r30, 0xBA	; 186
+  3a:	f2 e0       	ldi	r31, 0x02	; 2
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <.do_copy_data_start>
+
+0000003e <.do_copy_data_loop>:
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+
+00000042 <.do_copy_data_start>:
+  42:	a4 36       	cpi	r26, 0x64	; 100
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <.do_copy_data_loop>
+
+00000048 <__do_clear_bss>:
+  48:	10 e0       	ldi	r17, 0x00	; 0
+  4a:	a4 e6       	ldi	r26, 0x64	; 100
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	ad 36       	cpi	r26, 0x6D	; 109
+  54:	b1 07       	cpc	r27, r17
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	e1 d0       	rcall	.+450    	; 0x21c <main>
+  5a:	2d c1       	rjmp	.+602    	; 0x2b6 <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <__vector_1>:
+volatile unsigned char flag;							//flaga, ze wykryto przerwanie(opadajace zbocze)
+unsigned char setpass[4];								//ustawione haslo	
+unsigned char enterpass[4];								//wprowadzane haslo
+unsigned char changepass[4]={hash,A,B,C};
+/***********flaga w przerwaniu*************/
+ISR(INT0_vect){
+  5e:	1f 92       	push	r1
+  60:	0f 92       	push	r0
+  62:	0f b6       	in	r0, 0x3f	; 63
+  64:	0f 92       	push	r0
+  66:	11 24       	eor	r1, r1
+  68:	8f 93       	push	r24
+flag=1;													//flaga, bo tu impuls moze trwac za dlugo
+  6a:	81 e0       	ldi	r24, 0x01	; 1
+  6c:	80 93 64 00 	sts	0x0064, r24
+}
+  70:	8f 91       	pop	r24
+  72:	0f 90       	pop	r0
+  74:	0f be       	out	0x3f, r0	; 63
+  76:	0f 90       	pop	r0
+  78:	1f 90       	pop	r1
+  7a:	18 95       	reti
+
+0000007c <init>:
+/************inicjacja portow**************/
+void init(void){
+	DDRC  |= _BV(0)|_BV(1)|_BV(2)|_BV(3)|_BV(4);		//PC0-wyjscie do przekaznika PC1-4 wyjscie ledow
+  7c:	84 b3       	in	r24, 0x14	; 20
+  7e:	8f 61       	ori	r24, 0x1F	; 31
+  80:	84 bb       	out	0x14, r24	; 20
+	PORTC |= _BV(0)|_BV(1)|_BV(2)|_BV(3)|_BV(4);
+  82:	85 b3       	in	r24, 0x15	; 21
+  84:	8f 61       	ori	r24, 0x1F	; 31
+  86:	85 bb       	out	0x15, r24	; 21
+	
+	DDRD  &= ~(_BV(0)|_BV(1)|_BV(2)|_BV(3)|_BV(4));	//PD0..4 wejscia z dekodera+jedno sygnalizacyjne PD2
+  88:	81 b3       	in	r24, 0x11	; 17
+  8a:	80 7e       	andi	r24, 0xE0	; 224
+  8c:	81 bb       	out	0x11, r24	; 17
+}
+  8e:	08 95       	ret
+
+00000090 <decode>:
+
+/***************dekodowanie****************/
+unsigned char decode(void){
+	unsigned char tone =0;
+	tone = Q1|Q2|Q3|Q4;
+  90:	20 b3       	in	r18, 0x10	; 16
+  92:	80 b3       	in	r24, 0x10	; 16
+  94:	40 b3       	in	r20, 0x10	; 16
+  96:	60 b3       	in	r22, 0x10	; 16
+  98:	90 e0       	ldi	r25, 0x00	; 0
+  9a:	88 70       	andi	r24, 0x08	; 8
+  9c:	90 70       	andi	r25, 0x00	; 0
+  9e:	95 95       	asr	r25
+  a0:	87 95       	ror	r24
+  a2:	95 95       	asr	r25
+  a4:	87 95       	ror	r24
+  a6:	30 e0       	ldi	r19, 0x00	; 0
+  a8:	20 71       	andi	r18, 0x10	; 16
+  aa:	30 70       	andi	r19, 0x00	; 0
+  ac:	54 e0       	ldi	r21, 0x04	; 4
+  ae:	35 95       	asr	r19
+  b0:	27 95       	ror	r18
+  b2:	5a 95       	dec	r21
+  b4:	e1 f7       	brne	.-8      	; 0xae <decode+0x1e>
+  b6:	82 2b       	or	r24, r18
+  b8:	50 e0       	ldi	r21, 0x00	; 0
+  ba:	42 70       	andi	r20, 0x02	; 2
+  bc:	50 70       	andi	r21, 0x00	; 0
+  be:	44 0f       	add	r20, r20
+  c0:	55 1f       	adc	r21, r21
+  c2:	84 2b       	or	r24, r20
+  c4:	70 e0       	ldi	r23, 0x00	; 0
+  c6:	61 70       	andi	r22, 0x01	; 1
+  c8:	70 70       	andi	r23, 0x00	; 0
+  ca:	93 e0       	ldi	r25, 0x03	; 3
+  cc:	66 0f       	add	r22, r22
+  ce:	77 1f       	adc	r23, r23
+  d0:	9a 95       	dec	r25
+  d2:	e1 f7       	brne	.-8      	; 0xcc <decode+0x3c>
+	return(tone);
+}
+  d4:	86 2b       	or	r24, r22
+  d6:	08 95       	ret
+
+000000d8 <password>:
+/***********wpisywanie hasla***************/
+void password(unsigned char tab[]){
+  d8:	cf 92       	push	r12
+  da:	df 92       	push	r13
+  dc:	ff 92       	push	r15
+  de:	0f 93       	push	r16
+  e0:	1f 93       	push	r17
+  e2:	cf 93       	push	r28
+  e4:	df 93       	push	r29
+  e6:	ec 01       	movw	r28, r24
+  e8:	ff 24       	eor	r15, r15
+  ea:	f3 94       	inc	r15
+	for(unsigned char i=1;i<5;i++){
+		while(!(newDTMF));
+		while(newDTMF);									//te 2 while to chyba najlepiej ..
+		if(flag==1){										
+			tab[i-1]=decode();
+			setLED(i);									//zapala 4 diody po kolei
+  ec:	e1 e0       	ldi	r30, 0x01	; 1
+  ee:	ce 2e       	mov	r12, r30
+  f0:	d1 2c       	mov	r13, r1
+	return(tone);
+}
+/***********wpisywanie hasla***************/
+void password(unsigned char tab[]){
+	for(unsigned char i=1;i<5;i++){
+		while(!(newDTMF));
+  f2:	82 9b       	sbis	0x10, 2	; 16
+  f4:	fe cf       	rjmp	.-4      	; 0xf2 <password+0x1a>
+		while(newDTMF);									//te 2 while to chyba najlepiej ..
+  f6:	82 99       	sbic	0x10, 2	; 16
+  f8:	fe cf       	rjmp	.-4      	; 0xf6 <password+0x1e>
+		if(flag==1){										
+  fa:	80 91 64 00 	lds	r24, 0x0064
+  fe:	81 30       	cpi	r24, 0x01	; 1
+ 100:	e9 f4       	brne	.+58     	; 0x13c <password+0x64>
+			tab[i-1]=decode();
+ 102:	0f 2d       	mov	r16, r15
+ 104:	10 e0       	ldi	r17, 0x00	; 0
+ 106:	01 50       	subi	r16, 0x01	; 1
+ 108:	10 40       	sbci	r17, 0x00	; 0
+ 10a:	0c 0f       	add	r16, r28
+ 10c:	1d 1f       	adc	r17, r29
+ 10e:	c0 df       	rcall	.-128    	; 0x90 <decode>
+ 110:	f8 01       	movw	r30, r16
+ 112:	80 83       	st	Z, r24
+			setLED(i);									//zapala 4 diody po kolei
+ 114:	25 b3       	in	r18, 0x15	; 21
+ 116:	c6 01       	movw	r24, r12
+ 118:	0f 2c       	mov	r0, r15
+ 11a:	02 c0       	rjmp	.+4      	; 0x120 <password+0x48>
+ 11c:	88 0f       	add	r24, r24
+ 11e:	99 1f       	adc	r25, r25
+ 120:	0a 94       	dec	r0
+ 122:	e2 f7       	brpl	.-8      	; 0x11c <password+0x44>
+ 124:	80 95       	com	r24
+ 126:	82 23       	and	r24, r18
+ 128:	85 bb       	out	0x15, r24	; 21
+			flag=0;
+ 12a:	10 92 64 00 	sts	0x0064, r1
+			if(tab[i-1]==star){						//jezeli gwiazdka
+ 12e:	80 81       	ld	r24, Z
+ 130:	8b 30       	cpi	r24, 0x0B	; 11
+ 132:	21 f4       	brne	.+8      	; 0x13c <password+0x64>
+				i=0;									//zacznij od poczatku 
+				clearLEDs;
+ 134:	85 b3       	in	r24, 0x15	; 21
+ 136:	8f 61       	ori	r24, 0x1F	; 31
+ 138:	85 bb       	out	0x15, r24	; 21
+ 13a:	ff 24       	eor	r15, r15
+	tone = Q1|Q2|Q3|Q4;
+	return(tone);
+}
+/***********wpisywanie hasla***************/
+void password(unsigned char tab[]){
+	for(unsigned char i=1;i<5;i++){
+ 13c:	f3 94       	inc	r15
+ 13e:	f4 e0       	ldi	r31, 0x04	; 4
+ 140:	ff 15       	cp	r31, r15
+ 142:	b8 f6       	brcc	.-82     	; 0xf2 <password+0x1a>
+ 144:	80 ed       	ldi	r24, 0xD0	; 208
+ 146:	97 e0       	ldi	r25, 0x07	; 7
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 148:	28 ec       	ldi	r18, 0xC8	; 200
+ 14a:	30 e0       	ldi	r19, 0x00	; 0
+ 14c:	f9 01       	movw	r30, r18
+ 14e:	31 97       	sbiw	r30, 0x01	; 1
+ 150:	f1 f7       	brne	.-4      	; 0x14e <password+0x76>
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 152:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 154:	d9 f7       	brne	.-10     	; 0x14c <password+0x74>
+				clearLEDs;
+			}
+		}
+	}
+	_delay_ms(200);
+	clearLEDs;
+ 156:	85 b3       	in	r24, 0x15	; 21
+ 158:	8f 61       	ori	r24, 0x1F	; 31
+ 15a:	85 bb       	out	0x15, r24	; 21
+}
+ 15c:	df 91       	pop	r29
+ 15e:	cf 91       	pop	r28
+ 160:	1f 91       	pop	r17
+ 162:	0f 91       	pop	r16
+ 164:	ff 90       	pop	r15
+ 166:	df 90       	pop	r13
+ 168:	cf 90       	pop	r12
+ 16a:	08 95       	ret
+
+0000016c <checkPassword>:
+
+/**************porownanie hasla******************/
+unsigned char checkPassword(unsigned char buff[],unsigned char pass[]){
+ 16c:	cf 93       	push	r28
+ 16e:	df 93       	push	r29
+ 170:	ec 01       	movw	r28, r24
+ 172:	40 e0       	ldi	r20, 0x00	; 0
+ 174:	20 e0       	ldi	r18, 0x00	; 0
+ 176:	30 e0       	ldi	r19, 0x00	; 0
+	unsigned char c=0;
+	for(unsigned char i=0;i<4;i++){
+		if(buff[i]==pass[i]){
+ 178:	fe 01       	movw	r30, r28
+ 17a:	e2 0f       	add	r30, r18
+ 17c:	f3 1f       	adc	r31, r19
+ 17e:	db 01       	movw	r26, r22
+ 180:	a2 0f       	add	r26, r18
+ 182:	b3 1f       	adc	r27, r19
+ 184:	90 81       	ld	r25, Z
+ 186:	8c 91       	ld	r24, X
+ 188:	98 17       	cp	r25, r24
+ 18a:	11 f0       	breq	.+4      	; 0x190 <checkPassword+0x24>
+ 18c:	40 e0       	ldi	r20, 0x00	; 0
+ 18e:	01 c0       	rjmp	.+2      	; 0x192 <checkPassword+0x26>
+			c++;
+ 190:	4f 5f       	subi	r20, 0xFF	; 255
+ 192:	2f 5f       	subi	r18, 0xFF	; 255
+ 194:	3f 4f       	sbci	r19, 0xFF	; 255
+}
+
+/**************porownanie hasla******************/
+unsigned char checkPassword(unsigned char buff[],unsigned char pass[]){
+	unsigned char c=0;
+	for(unsigned char i=0;i<4;i++){
+ 196:	24 30       	cpi	r18, 0x04	; 4
+ 198:	31 05       	cpc	r19, r1
+ 19a:	71 f7       	brne	.-36     	; 0x178 <checkPassword+0xc>
+ 19c:	80 e0       	ldi	r24, 0x00	; 0
+ 19e:	44 30       	cpi	r20, 0x04	; 4
+ 1a0:	09 f4       	brne	.+2      	; 0x1a4 <checkPassword+0x38>
+ 1a2:	81 e0       	ldi	r24, 0x01	; 1
+	}
+	if(c==4) 
+		return(1);										//jezeli haslo dobre to prawda(1)
+	else 
+		return(0);										//jezeli haslo niedobre to falsz(0)
+}
+ 1a4:	df 91       	pop	r29
+ 1a6:	cf 91       	pop	r28
+ 1a8:	08 95       	ret
+
+000001aa <open>:
+/**************otwarcie zamka********************/
+void open(void){
+	relayON;											//otwarcie zamka
+ 1aa:	a8 98       	cbi	0x15, 0	; 21
+ 1ac:	80 e6       	ldi	r24, 0x60	; 96
+ 1ae:	9a ee       	ldi	r25, 0xEA	; 234
+ 1b0:	28 ec       	ldi	r18, 0xC8	; 200
+ 1b2:	30 e0       	ldi	r19, 0x00	; 0
+ 1b4:	f9 01       	movw	r30, r18
+ 1b6:	31 97       	sbiw	r30, 0x01	; 1
+ 1b8:	f1 f7       	brne	.-4      	; 0x1b6 <open+0xc>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 1ba:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 1bc:	d9 f7       	brne	.-10     	; 0x1b4 <open+0xa>
+	_delay_ms(6000);									//zamek otwarty (6,5535sek)na delaya
+	relayOFF;											//zamkniecie zamka
+ 1be:	a8 9a       	sbi	0x15, 0	; 21
+	clearLEDs;								 			//zgaszenie diod
+ 1c0:	85 b3       	in	r24, 0x15	; 21
+ 1c2:	8f 61       	ori	r24, 0x1F	; 31
+ 1c4:	85 bb       	out	0x15, r24	; 21
+}
+ 1c6:	08 95       	ret
+
+000001c8 <readpassEEPROM>:
+		eeprom_write_byte((uint8_t*)i,setpass[i]);		//for(uint8_t i=0;i<4;i++)
+	sei();												//eeprom_write_byte(i,setpass[i]);
+}
+
+/***********wczytanie hasla z EEPROM***********/
+void readpassEEPROM(void){
+ 1c8:	cf 93       	push	r28
+ 1ca:	df 93       	push	r29
+	cli();
+ 1cc:	f8 94       	cli
+ 1ce:	c0 e0       	ldi	r28, 0x00	; 0
+ 1d0:	d0 e0       	ldi	r29, 0x00	; 0
+	for(int i=0;i<4;i++)
+		setpass[i]=eeprom_read_byte((uint8_t*)i);
+ 1d2:	ce 01       	movw	r24, r28
+ 1d4:	5b d0       	rcall	.+182    	; 0x28c <__eerd_byte_m8>
+ 1d6:	fe 01       	movw	r30, r28
+ 1d8:	e7 59       	subi	r30, 0x97	; 151
+ 1da:	ff 4f       	sbci	r31, 0xFF	; 255
+ 1dc:	80 83       	st	Z, r24
+}
+
+/***********wczytanie hasla z EEPROM***********/
+void readpassEEPROM(void){
+	cli();
+	for(int i=0;i<4;i++)
+ 1de:	21 96       	adiw	r28, 0x01	; 1
+ 1e0:	c4 30       	cpi	r28, 0x04	; 4
+ 1e2:	d1 05       	cpc	r29, r1
+ 1e4:	b1 f7       	brne	.-20     	; 0x1d2 <readpassEEPROM+0xa>
+		setpass[i]=eeprom_read_byte((uint8_t*)i);
+	sei();												//wlaczenie obslugi przerwan
+ 1e6:	78 94       	sei
+
+}	
+ 1e8:	df 91       	pop	r29
+ 1ea:	cf 91       	pop	r28
+ 1ec:	08 95       	ret
+
+000001ee <savepassEEPROM>:
+	relayOFF;											//zamkniecie zamka
+	clearLEDs;								 			//zgaszenie diod
+}
+/***********zapisanie hasla do EEPROM***********/
+void savepassEEPROM(void){
+	cli();
+ 1ee:	f8 94       	cli
+	for(int i=0;i<4;i++)								//czemu kompilator mnie ostrzega jak nie rzutuje? passing argument 1 of'__eewr_byte_m8' makes pointer from integer without cast
+		eeprom_write_byte((uint8_t*)i,setpass[i]);		//for(uint8_t i=0;i<4;i++)
+ 1f0:	80 e0       	ldi	r24, 0x00	; 0
+ 1f2:	90 e0       	ldi	r25, 0x00	; 0
+ 1f4:	60 91 69 00 	lds	r22, 0x0069
+ 1f8:	51 d0       	rcall	.+162    	; 0x29c <__eewr_byte_m8>
+ 1fa:	81 e0       	ldi	r24, 0x01	; 1
+ 1fc:	90 e0       	ldi	r25, 0x00	; 0
+ 1fe:	60 91 6a 00 	lds	r22, 0x006A
+ 202:	4c d0       	rcall	.+152    	; 0x29c <__eewr_byte_m8>
+ 204:	82 e0       	ldi	r24, 0x02	; 2
+ 206:	90 e0       	ldi	r25, 0x00	; 0
+ 208:	60 91 6b 00 	lds	r22, 0x006B
+ 20c:	47 d0       	rcall	.+142    	; 0x29c <__eewr_byte_m8>
+ 20e:	83 e0       	ldi	r24, 0x03	; 3
+ 210:	90 e0       	ldi	r25, 0x00	; 0
+ 212:	60 91 6c 00 	lds	r22, 0x006C
+ 216:	42 d0       	rcall	.+132    	; 0x29c <__eewr_byte_m8>
+	sei();												//eeprom_write_byte(i,setpass[i]);
+ 218:	78 94       	sei
+}
+ 21a:	08 95       	ret
+
+0000021c <main>:
+	sei();												//wlaczenie obslugi przerwan
+
+}	
+
+int main(void)
+{
+ 21c:	1f 93       	push	r17
+ 21e:	cf 93       	push	r28
+ 220:	df 93       	push	r29
+/**************obsluga przerwan******************/
+	GICR |= (1<<INT0);									
+ 222:	8b b7       	in	r24, 0x3b	; 59
+ 224:	80 64       	ori	r24, 0x40	; 64
+ 226:	8b bf       	out	0x3b, r24	; 59
+	MCUCR |=(1<<ISC01);									//ISC1=1 ISC0=0	Przerwanie generuje zbocze opadajae sygnalu na linii INT0, czyli przejœcie 1 › 0.'
+ 228:	85 b7       	in	r24, 0x35	; 53
+ 22a:	82 60       	ori	r24, 0x02	; 2
+ 22c:	85 bf       	out	0x35, r24	; 53
+	init();
+ 22e:	26 df       	rcall	.-436    	; 0x7c <init>
+	readpassEEPROM();
+ 230:	cb df       	rcall	.-106    	; 0x1c8 <readpassEEPROM>
+		}else if(checkPassword(enterpass, changepass)){
+			password(setpass);							//jezeli wprowadzono kod zmiany hasla, ustaw nowe haslo
+			savepassEEPROM();
+		}else{
+			for(unsigned char i=0;i<10;i++){
+			changeLEDs;
+ 232:	1e e1       	ldi	r17, 0x1E	; 30
+ 234:	c8 ec       	ldi	r28, 0xC8	; 200
+ 236:	d0 e0       	ldi	r29, 0x00	; 0
+	MCUCR |=(1<<ISC01);									//ISC1=1 ISC0=0	Przerwanie generuje zbocze opadajae sygnalu na linii INT0, czyli przejœcie 1 › 0.'
+	init();
+	readpassEEPROM();
+/**************petla glowna**********************/
+	while(1){
+		password(enterpass);							//oczekiwanie na wpisanie hasla
+ 238:	85 e6       	ldi	r24, 0x65	; 101
+ 23a:	90 e0       	ldi	r25, 0x00	; 0
+ 23c:	4d df       	rcall	.-358    	; 0xd8 <password>
+		if(checkPassword(enterpass, setpass)){			//sprawdzenie czy zgadza sie z ustawionym haslem
+ 23e:	85 e6       	ldi	r24, 0x65	; 101
+ 240:	90 e0       	ldi	r25, 0x00	; 0
+ 242:	69 e6       	ldi	r22, 0x69	; 105
+ 244:	70 e0       	ldi	r23, 0x00	; 0
+ 246:	92 df       	rcall	.-220    	; 0x16c <checkPassword>
+ 248:	88 23       	and	r24, r24
+ 24a:	11 f0       	breq	.+4      	; 0x250 <main+0x34>
+			open();
+ 24c:	ae df       	rcall	.-164    	; 0x1aa <open>
+ 24e:	f4 cf       	rjmp	.-24     	; 0x238 <main+0x1c>
+		}else if(checkPassword(enterpass, changepass)){
+ 250:	85 e6       	ldi	r24, 0x65	; 101
+ 252:	90 e0       	ldi	r25, 0x00	; 0
+ 254:	60 e6       	ldi	r22, 0x60	; 96
+ 256:	70 e0       	ldi	r23, 0x00	; 0
+ 258:	89 df       	rcall	.-238    	; 0x16c <checkPassword>
+ 25a:	88 23       	and	r24, r24
+ 25c:	29 f0       	breq	.+10     	; 0x268 <main+0x4c>
+			password(setpass);							//jezeli wprowadzono kod zmiany hasla, ustaw nowe haslo
+ 25e:	89 e6       	ldi	r24, 0x69	; 105
+ 260:	90 e0       	ldi	r25, 0x00	; 0
+ 262:	3a df       	rcall	.-396    	; 0xd8 <password>
+			savepassEEPROM();
+ 264:	c4 df       	rcall	.-120    	; 0x1ee <savepassEEPROM>
+ 266:	e8 cf       	rjmp	.-48     	; 0x238 <main+0x1c>
+ 268:	20 e0       	ldi	r18, 0x00	; 0
+		}else{
+			for(unsigned char i=0;i<10;i++){
+			changeLEDs;
+ 26a:	85 b3       	in	r24, 0x15	; 21
+ 26c:	81 27       	eor	r24, r17
+ 26e:	85 bb       	out	0x15, r24	; 21
+ 270:	88 e8       	ldi	r24, 0x88	; 136
+ 272:	93 e1       	ldi	r25, 0x13	; 19
+ 274:	fe 01       	movw	r30, r28
+ 276:	31 97       	sbiw	r30, 0x01	; 1
+ 278:	f1 f7       	brne	.-4      	; 0x276 <main+0x5a>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 27a:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 27c:	d9 f7       	brne	.-10     	; 0x274 <main+0x58>
+			open();
+		}else if(checkPassword(enterpass, changepass)){
+			password(setpass);							//jezeli wprowadzono kod zmiany hasla, ustaw nowe haslo
+			savepassEEPROM();
+		}else{
+			for(unsigned char i=0;i<10;i++){
+ 27e:	2f 5f       	subi	r18, 0xFF	; 255
+ 280:	2a 30       	cpi	r18, 0x0A	; 10
+ 282:	99 f7       	brne	.-26     	; 0x26a <main+0x4e>
+			changeLEDs;
+			_delay_ms(500);
+			}
+			clearLEDs;
+ 284:	85 b3       	in	r24, 0x15	; 21
+ 286:	8f 61       	ori	r24, 0x1F	; 31
+ 288:	85 bb       	out	0x15, r24	; 21
+ 28a:	d6 cf       	rjmp	.-84     	; 0x238 <main+0x1c>
+
+0000028c <__eerd_byte_m8>:
+ 28c:	e1 99       	sbic	0x1c, 1	; 28
+ 28e:	fe cf       	rjmp	.-4      	; 0x28c <__eerd_byte_m8>
+ 290:	9f bb       	out	0x1f, r25	; 31
+ 292:	8e bb       	out	0x1e, r24	; 30
+ 294:	e0 9a       	sbi	0x1c, 0	; 28
+ 296:	99 27       	eor	r25, r25
+ 298:	8d b3       	in	r24, 0x1d	; 29
+ 29a:	08 95       	ret
+
+0000029c <__eewr_byte_m8>:
+ 29c:	26 2f       	mov	r18, r22
+
+0000029e <__eewr_r18_m8>:
+ 29e:	e1 99       	sbic	0x1c, 1	; 28
+ 2a0:	fe cf       	rjmp	.-4      	; 0x29e <__eewr_r18_m8>
+ 2a2:	9f bb       	out	0x1f, r25	; 31
+ 2a4:	8e bb       	out	0x1e, r24	; 30
+ 2a6:	2d bb       	out	0x1d, r18	; 29
+ 2a8:	0f b6       	in	r0, 0x3f	; 63
+ 2aa:	f8 94       	cli
+ 2ac:	e2 9a       	sbi	0x1c, 2	; 28
+ 2ae:	e1 9a       	sbi	0x1c, 1	; 28
+ 2b0:	0f be       	out	0x3f, r0	; 63
+ 2b2:	01 96       	adiw	r24, 0x01	; 1
+ 2b4:	08 95       	ret
+
+000002b6 <_exit>:
+ 2b6:	f8 94       	cli
+
+000002b8 <__stop_program>:
+ 2b8:	ff cf       	rjmp	.-2      	; 0x2b8 <__stop_program>

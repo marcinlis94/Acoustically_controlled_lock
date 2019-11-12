@@ -1,0 +1,562 @@
+   1               		.file	"Zamek_kodowy.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	__vector_1
+  18               	__vector_1:
+  19               	.LFB6:
+  20               	.LM1:
+  21 0000 1F92      		push __zero_reg__
+  22 0002 0F92      		push r0
+  23 0004 0FB6      		in r0,__SREG__
+  24 0006 0F92      		push r0
+  25 0008 1124      		clr __zero_reg__
+  26 000a 8F93      		push r24
+  27               	/* prologue: Signal */
+  28               	/* frame size = 0 */
+  29               	.LM2:
+  30 000c 81E0      		ldi r24,lo8(1)
+  31 000e 8093 0000 		sts flag,r24
+  32               	/* epilogue start */
+  33               	.LM3:
+  34 0012 8F91      		pop r24
+  35 0014 0F90      		pop r0
+  36 0016 0FBE      		out __SREG__,r0
+  37 0018 0F90      		pop r0
+  38 001a 1F90      		pop __zero_reg__
+  39 001c 1895      		reti
+  40               	.LFE6:
+  42               	.global	init
+  44               	init:
+  45               	.LFB7:
+  46               	.LM4:
+  47               	/* prologue: function */
+  48               	/* frame size = 0 */
+  49               	.LM5:
+  50 001e 84B3      		in r24,52-32
+  51 0020 8F61      		ori r24,lo8(31)
+  52 0022 84BB      		out 52-32,r24
+  53               	.LM6:
+  54 0024 85B3      		in r24,53-32
+  55 0026 8F61      		ori r24,lo8(31)
+  56 0028 85BB      		out 53-32,r24
+  57               	.LM7:
+  58 002a 81B3      		in r24,49-32
+  59 002c 807E      		andi r24,lo8(-32)
+  60 002e 81BB      		out 49-32,r24
+  61               	/* epilogue start */
+  62               	.LM8:
+  63 0030 0895      		ret
+  64               	.LFE7:
+  66               	.global	decode
+  68               	decode:
+  69               	.LFB8:
+  70               	.LM9:
+  71               	/* prologue: function */
+  72               	/* frame size = 0 */
+  73               	.LM10:
+  74 0032 20B3      		in r18,48-32
+  75 0034 80B3      		in r24,48-32
+  76 0036 40B3      		in r20,48-32
+  77 0038 60B3      		in r22,48-32
+  78 003a 90E0      		ldi r25,lo8(0)
+  79 003c 8870      		andi r24,lo8(8)
+  80 003e 9070      		andi r25,hi8(8)
+  81 0040 9595      		asr r25
+  82 0042 8795      		ror r24
+  83 0044 9595      		asr r25
+  84 0046 8795      		ror r24
+  85 0048 30E0      		ldi r19,lo8(0)
+  86 004a 2071      		andi r18,lo8(16)
+  87 004c 3070      		andi r19,hi8(16)
+  88 004e 54E0      		ldi r21,4
+  89 0050 3595      	1:	asr r19
+  90 0052 2795      		ror r18
+  91 0054 5A95      		dec r21
+  92 0056 01F4      		brne 1b
+  93 0058 822B      		or r24,r18
+  94 005a 50E0      		ldi r21,lo8(0)
+  95 005c 4270      		andi r20,lo8(2)
+  96 005e 5070      		andi r21,hi8(2)
+  97 0060 440F      		lsl r20
+  98 0062 551F      		rol r21
+  99 0064 842B      		or r24,r20
+ 100 0066 70E0      		ldi r23,lo8(0)
+ 101 0068 6170      		andi r22,lo8(1)
+ 102 006a 7070      		andi r23,hi8(1)
+ 103 006c 93E0      		ldi r25,3
+ 104 006e 660F      	1:	lsl r22
+ 105 0070 771F      		rol r23
+ 106 0072 9A95      		dec r25
+ 107 0074 01F4      		brne 1b
+ 108               	.LM11:
+ 109 0076 862B      		or r24,r22
+ 110               	/* epilogue start */
+ 111 0078 0895      		ret
+ 112               	.LFE8:
+ 114               	.global	password
+ 116               	password:
+ 117               	.LFB9:
+ 118               	.LM12:
+ 119               	.LVL0:
+ 120 007a CF92      		push r12
+ 121 007c DF92      		push r13
+ 122 007e FF92      		push r15
+ 123 0080 0F93      		push r16
+ 124 0082 1F93      		push r17
+ 125 0084 CF93      		push r28
+ 126 0086 DF93      		push r29
+ 127               	/* prologue: function */
+ 128               	/* frame size = 0 */
+ 129 0088 EC01      		movw r28,r24
+ 130               	.LM13:
+ 131 008a FF24      		clr r15
+ 132 008c F394      		inc r15
+ 133               	.LVL1:
+ 134               	.LBB26:
+ 135               	.LM14:
+ 136 008e E1E0      		ldi r30,lo8(1)
+ 137 0090 CE2E      		mov r12,r30
+ 138 0092 D12C      		mov r13,__zero_reg__
+ 139               	.LVL2:
+ 140               	.L18:
+ 141               	.LM15:
+ 142 0094 829B      		sbis 48-32,2
+ 143 0096 00C0      		rjmp .L18
+ 144               	.L14:
+ 145               	.LM16:
+ 146 0098 8299      		sbic 48-32,2
+ 147 009a 00C0      		rjmp .L14
+ 148               	.LM17:
+ 149 009c 8091 0000 		lds r24,flag
+ 150 00a0 8130      		cpi r24,lo8(1)
+ 151 00a2 01F4      		brne .L10
+ 152               	.LM18:
+ 153 00a4 0F2D      		mov r16,r15
+ 154 00a6 10E0      		ldi r17,lo8(0)
+ 155 00a8 0150      		subi r16,lo8(-(-1))
+ 156 00aa 1040      		sbci r17,hi8(-(-1))
+ 157 00ac 0C0F      		add r16,r28
+ 158 00ae 1D1F      		adc r17,r29
+ 159 00b0 00D0      		rcall decode
+ 160 00b2 F801      		movw r30,r16
+ 161 00b4 8083      		st Z,r24
+ 162               	.LM19:
+ 163 00b6 25B3      		in r18,53-32
+ 164 00b8 C601      		movw r24,r12
+ 165 00ba 0F2C      		mov r0,r15
+ 166 00bc 00C0      		rjmp 2f
+ 167 00be 880F      	1:	lsl r24
+ 168 00c0 991F      		rol r25
+ 169 00c2 0A94      	2:	dec r0
+ 170 00c4 02F4      		brpl 1b
+ 171 00c6 8095      		com r24
+ 172 00c8 8223      		and r24,r18
+ 173 00ca 85BB      		out 53-32,r24
+ 174               	.LM20:
+ 175 00cc 1092 0000 		sts flag,__zero_reg__
+ 176               	.LM21:
+ 177 00d0 8081      		ld r24,Z
+ 178 00d2 8B30      		cpi r24,lo8(11)
+ 179 00d4 01F4      		brne .L10
+ 180               	.LM22:
+ 181 00d6 85B3      		in r24,53-32
+ 182 00d8 8F61      		ori r24,lo8(31)
+ 183 00da 85BB      		out 53-32,r24
+ 184 00dc FF24      		clr r15
+ 185               	.L10:
+ 186               	.LM23:
+ 187 00de F394      		inc r15
+ 188 00e0 F4E0      		ldi r31,lo8(4)
+ 189 00e2 FF15      		cp r31,r15
+ 190 00e4 00F4      		brsh .L18
+ 191 00e6 80ED      		ldi r24,lo8(2000)
+ 192 00e8 97E0      		ldi r25,hi8(2000)
+ 193               	.LVL3:
+ 194               	.LBE26:
+ 195               	.LBB27:
+ 196               	.LBB28:
+ 197               	.LBB29:
+ 198               	.LBB30:
+ 199               	.LM24:
+ 200 00ea 28EC      		ldi r18,lo8(200)
+ 201 00ec 30E0      		ldi r19,hi8(200)
+ 202               	.L11:
+ 203 00ee F901      		movw r30,r18
+ 204               	.LVL4:
+ 205               	/* #APP */
+ 206               	 ;  105 "d:/winavr/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 207 00f0 3197      		1: sbiw r30,1
+ 208 00f2 01F4      		brne 1b
+ 209               	 ;  0 "" 2
+ 210               	/* #NOAPP */
+ 211               	.LBE30:
+ 212               	.LBE29:
+ 213               	.LM25:
+ 214 00f4 0197      		sbiw r24,1
+ 215               	.LM26:
+ 216 00f6 01F4      		brne .L11
+ 217               	.LBE28:
+ 218               	.LBE27:
+ 219               	.LM27:
+ 220 00f8 85B3      		in r24,53-32
+ 221               	.LVL5:
+ 222 00fa 8F61      		ori r24,lo8(31)
+ 223 00fc 85BB      		out 53-32,r24
+ 224               	/* epilogue start */
+ 225               	.LM28:
+ 226 00fe DF91      		pop r29
+ 227 0100 CF91      		pop r28
+ 228               	.LVL6:
+ 229 0102 1F91      		pop r17
+ 230 0104 0F91      		pop r16
+ 231 0106 FF90      		pop r15
+ 232               	.LVL7:
+ 233 0108 DF90      		pop r13
+ 234 010a CF90      		pop r12
+ 235 010c 0895      		ret
+ 236               	.LFE9:
+ 238               	.global	checkPassword
+ 240               	checkPassword:
+ 241               	.LFB10:
+ 242               	.LM29:
+ 243               	.LVL8:
+ 244 010e CF93      		push r28
+ 245 0110 DF93      		push r29
+ 246               	/* prologue: function */
+ 247               	/* frame size = 0 */
+ 248 0112 EC01      		movw r28,r24
+ 249               	.LM30:
+ 250 0114 40E0      		ldi r20,lo8(0)
+ 251               	.LVL9:
+ 252 0116 20E0      		ldi r18,lo8(0)
+ 253 0118 30E0      		ldi r19,hi8(0)
+ 254               	.LVL10:
+ 255               	.L22:
+ 256               	.LBB31:
+ 257               	.LM31:
+ 258 011a FE01      		movw r30,r28
+ 259 011c E20F      		add r30,r18
+ 260 011e F31F      		adc r31,r19
+ 261 0120 DB01      		movw r26,r22
+ 262 0122 A20F      		add r26,r18
+ 263 0124 B31F      		adc r27,r19
+ 264 0126 9081      		ld r25,Z
+ 265 0128 8C91      		ld r24,X
+ 266 012a 9817      		cp r25,r24
+ 267 012c 01F0      		breq .L20
+ 268 012e 40E0      		ldi r20,lo8(0)
+ 269 0130 00C0      		rjmp .L21
+ 270               	.L20:
+ 271               	.LM32:
+ 272 0132 4F5F      		subi r20,lo8(-(1))
+ 273               	.L21:
+ 274 0134 2F5F      		subi r18,lo8(-(1))
+ 275 0136 3F4F      		sbci r19,hi8(-(1))
+ 276               	.LM33:
+ 277 0138 2430      		cpi r18,4
+ 278 013a 3105      		cpc r19,__zero_reg__
+ 279 013c 01F4      		brne .L22
+ 280 013e 80E0      		ldi r24,lo8(0)
+ 281 0140 4430      		cpi r20,lo8(4)
+ 282 0142 01F4      		brne .L23
+ 283 0144 81E0      		ldi r24,lo8(1)
+ 284               	.L23:
+ 285               	/* epilogue start */
+ 286               	.LBE31:
+ 287               	.LM34:
+ 288 0146 DF91      		pop r29
+ 289 0148 CF91      		pop r28
+ 290               	.LVL11:
+ 291 014a 0895      		ret
+ 292               	.LFE10:
+ 294               	.global	open
+ 296               	open:
+ 297               	.LFB11:
+ 298               	.LM35:
+ 299               	/* prologue: function */
+ 300               	/* frame size = 0 */
+ 301               	.LM36:
+ 302 014c A898      		cbi 53-32,0
+ 303 014e 80E6      		ldi r24,lo8(-5536)
+ 304 0150 9AEE      		ldi r25,hi8(-5536)
+ 305               	.LVL12:
+ 306               	.LBB32:
+ 307               	.LBB33:
+ 308               	.LBB34:
+ 309               	.LBB35:
+ 310               	.LM37:
+ 311 0152 28EC      		ldi r18,lo8(200)
+ 312 0154 30E0      		ldi r19,hi8(200)
+ 313               	.L27:
+ 314 0156 F901      		movw r30,r18
+ 315               	.LVL13:
+ 316               	/* #APP */
+ 317               	 ;  105 "d:/winavr/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 318 0158 3197      		1: sbiw r30,1
+ 319 015a 01F4      		brne 1b
+ 320               	 ;  0 "" 2
+ 321               	/* #NOAPP */
+ 322               	.LBE35:
+ 323               	.LBE34:
+ 324               	.LM38:
+ 325 015c 0197      		sbiw r24,1
+ 326               	.LM39:
+ 327 015e 01F4      		brne .L27
+ 328               	.LBE33:
+ 329               	.LBE32:
+ 330               	.LM40:
+ 331 0160 A89A      		sbi 53-32,0
+ 332               	.LM41:
+ 333 0162 85B3      		in r24,53-32
+ 334               	.LVL14:
+ 335 0164 8F61      		ori r24,lo8(31)
+ 336 0166 85BB      		out 53-32,r24
+ 337               	/* epilogue start */
+ 338               	.LM42:
+ 339 0168 0895      		ret
+ 340               	.LFE11:
+ 342               	.global	readpassEEPROM
+ 344               	readpassEEPROM:
+ 345               	.LFB13:
+ 346               	.LM43:
+ 347 016a CF93      		push r28
+ 348 016c DF93      		push r29
+ 349               	/* prologue: function */
+ 350               	/* frame size = 0 */
+ 351               	.LM44:
+ 352               	/* #APP */
+ 353               	 ;  94 "Zamek_kodowy.c" 1
+ 354 016e F894      		cli
+ 355               	 ;  0 "" 2
+ 356               	/* #NOAPP */
+ 357 0170 C0E0      		ldi r28,lo8(0)
+ 358 0172 D0E0      		ldi r29,hi8(0)
+ 359               	.LVL15:
+ 360               	.L31:
+ 361               	.LBB36:
+ 362               	.LM45:
+ 363 0174 CE01      		movw r24,r28
+ 364 0176 00D0      		rcall __eerd_byte_m8
+ 365 0178 FE01      		movw r30,r28
+ 366 017a E050      		subi r30,lo8(-(setpass))
+ 367 017c F040      		sbci r31,hi8(-(setpass))
+ 368 017e 8083      		st Z,r24
+ 369               	.LM46:
+ 370 0180 2196      		adiw r28,1
+ 371 0182 C430      		cpi r28,4
+ 372 0184 D105      		cpc r29,__zero_reg__
+ 373 0186 01F4      		brne .L31
+ 374               	.LBE36:
+ 375               	.LM47:
+ 376               	/* #APP */
+ 377               	 ;  97 "Zamek_kodowy.c" 1
+ 378 0188 7894      		sei
+ 379               	 ;  0 "" 2
+ 380               	/* epilogue start */
+ 381               	.LM48:
+ 382               	/* #NOAPP */
+ 383 018a DF91      		pop r29
+ 384 018c CF91      		pop r28
+ 385               	.LVL16:
+ 386 018e 0895      		ret
+ 387               	.LFE13:
+ 389               	.global	savepassEEPROM
+ 391               	savepassEEPROM:
+ 392               	.LFB12:
+ 393               	.LM49:
+ 394               	/* prologue: function */
+ 395               	/* frame size = 0 */
+ 396               	.LM50:
+ 397               	/* #APP */
+ 398               	 ;  86 "Zamek_kodowy.c" 1
+ 399 0190 F894      		cli
+ 400               	 ;  0 "" 2
+ 401               	/* #NOAPP */
+ 402               	.LBB37:
+ 403               	.LM51:
+ 404 0192 80E0      		ldi r24,lo8(0)
+ 405 0194 90E0      		ldi r25,hi8(0)
+ 406 0196 6091 0000 		lds r22,setpass
+ 407 019a 00D0      		rcall __eewr_byte_m8
+ 408 019c 81E0      		ldi r24,lo8(1)
+ 409 019e 90E0      		ldi r25,hi8(1)
+ 410 01a0 6091 0000 		lds r22,setpass+1
+ 411 01a4 00D0      		rcall __eewr_byte_m8
+ 412 01a6 82E0      		ldi r24,lo8(2)
+ 413 01a8 90E0      		ldi r25,hi8(2)
+ 414 01aa 6091 0000 		lds r22,setpass+2
+ 415 01ae 00D0      		rcall __eewr_byte_m8
+ 416 01b0 83E0      		ldi r24,lo8(3)
+ 417 01b2 90E0      		ldi r25,hi8(3)
+ 418 01b4 6091 0000 		lds r22,setpass+3
+ 419 01b8 00D0      		rcall __eewr_byte_m8
+ 420               	.LBE37:
+ 421               	.LM52:
+ 422               	/* #APP */
+ 423               	 ;  89 "Zamek_kodowy.c" 1
+ 424 01ba 7894      		sei
+ 425               	 ;  0 "" 2
+ 426               	/* epilogue start */
+ 427               	.LM53:
+ 428               	/* #NOAPP */
+ 429 01bc 0895      		ret
+ 430               	.LFE12:
+ 432               	.global	main
+ 434               	main:
+ 435               	.LFB14:
+ 436               	.LM54:
+ 437 01be 1F93      		push r17
+ 438 01c0 CF93      		push r28
+ 439 01c2 DF93      		push r29
+ 440               	/* prologue: function */
+ 441               	/* frame size = 0 */
+ 442               	.LM55:
+ 443 01c4 8BB7      		in r24,91-32
+ 444 01c6 8064      		ori r24,lo8(64)
+ 445 01c8 8BBF      		out 91-32,r24
+ 446               	.LM56:
+ 447 01ca 85B7      		in r24,85-32
+ 448 01cc 8260      		ori r24,lo8(2)
+ 449 01ce 85BF      		out 85-32,r24
+ 450               	.LM57:
+ 451 01d0 00D0      		rcall init
+ 452               	.LM58:
+ 453 01d2 00D0      		rcall readpassEEPROM
+ 454               	.LBB38:
+ 455               	.LM59:
+ 456 01d4 1EE1      		ldi r17,lo8(30)
+ 457               	.LBB39:
+ 458               	.LBB40:
+ 459               	.LBB41:
+ 460               	.LBB42:
+ 461               	.LM60:
+ 462 01d6 C8EC      		ldi r28,lo8(200)
+ 463 01d8 D0E0      		ldi r29,hi8(200)
+ 464               	.LVL17:
+ 465               	.L45:
+ 466               	.LBE42:
+ 467               	.LBE41:
+ 468               	.LBE40:
+ 469               	.LBE39:
+ 470               	.LBE38:
+ 471               	.LM61:
+ 472 01da 80E0      		ldi r24,lo8(enterpass)
+ 473 01dc 90E0      		ldi r25,hi8(enterpass)
+ 474 01de 00D0      		rcall password
+ 475               	.LVL18:
+ 476               	.LM62:
+ 477 01e0 80E0      		ldi r24,lo8(enterpass)
+ 478 01e2 90E0      		ldi r25,hi8(enterpass)
+ 479 01e4 60E0      		ldi r22,lo8(setpass)
+ 480 01e6 70E0      		ldi r23,hi8(setpass)
+ 481 01e8 00D0      		rcall checkPassword
+ 482 01ea 8823      		tst r24
+ 483 01ec 01F0      		breq .L37
+ 484               	.LM63:
+ 485 01ee 00D0      		rcall open
+ 486 01f0 00C0      		rjmp .L45
+ 487               	.L37:
+ 488               	.LM64:
+ 489 01f2 80E0      		ldi r24,lo8(enterpass)
+ 490 01f4 90E0      		ldi r25,hi8(enterpass)
+ 491 01f6 60E0      		ldi r22,lo8(changepass)
+ 492 01f8 70E0      		ldi r23,hi8(changepass)
+ 493 01fa 00D0      		rcall checkPassword
+ 494 01fc 8823      		tst r24
+ 495 01fe 01F0      		breq .L39
+ 496               	.LM65:
+ 497 0200 80E0      		ldi r24,lo8(setpass)
+ 498 0202 90E0      		ldi r25,hi8(setpass)
+ 499 0204 00D0      		rcall password
+ 500               	.LM66:
+ 501 0206 00D0      		rcall savepassEEPROM
+ 502 0208 00C0      		rjmp .L45
+ 503               	.L39:
+ 504 020a 20E0      		ldi r18,lo8(0)
+ 505               	.LVL19:
+ 506               	.L41:
+ 507               	.LBB47:
+ 508               	.LM67:
+ 509 020c 85B3      		in r24,53-32
+ 510               	.LVL20:
+ 511 020e 8127      		eor r24,r17
+ 512 0210 85BB      		out 53-32,r24
+ 513 0212 88E8      		ldi r24,lo8(5000)
+ 514 0214 93E1      		ldi r25,hi8(5000)
+ 515               	.LVL21:
+ 516               	.L40:
+ 517               	.LBB46:
+ 518               	.LBB45:
+ 519               	.LBB44:
+ 520               	.LBB43:
+ 521               	.LM68:
+ 522 0216 FE01      		movw r30,r28
+ 523               	/* #APP */
+ 524               	 ;  105 "d:/winavr/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 525 0218 3197      		1: sbiw r30,1
+ 526 021a 01F4      		brne 1b
+ 527               	 ;  0 "" 2
+ 528               	/* #NOAPP */
+ 529               	.LBE43:
+ 530               	.LBE44:
+ 531               	.LM69:
+ 532 021c 0197      		sbiw r24,1
+ 533               	.LM70:
+ 534 021e 01F4      		brne .L40
+ 535               	.LBE45:
+ 536               	.LBE46:
+ 537               	.LM71:
+ 538 0220 2F5F      		subi r18,lo8(-(1))
+ 539 0222 2A30      		cpi r18,lo8(10)
+ 540 0224 01F4      		brne .L41
+ 541               	.LBE47:
+ 542               	.LM72:
+ 543 0226 85B3      		in r24,53-32
+ 544               	.LVL22:
+ 545 0228 8F61      		ori r24,lo8(31)
+ 546 022a 85BB      		out 53-32,r24
+ 547 022c 00C0      		rjmp .L45
+ 548               	.LFE14:
+ 550               	.global	changepass
+ 551               		.data
+ 554               	changepass:
+ 555 0000 0C        		.byte	12
+ 556 0001 0D        		.byte	13
+ 557 0002 0E        		.byte	14
+ 558 0003 0F        		.byte	15
+ 559               		.comm flag,1,1
+ 560               		.comm setpass,4,1
+ 561               		.comm enterpass,4,1
+ 650               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 Zamek_kodowy.c
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:2      *ABS*:0000003f __SREG__
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:5      *ABS*:00000034 __CCP__
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:18     .text:00000000 __vector_1
+                            *COM*:00000001 flag
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:44     .text:0000001e init
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:68     .text:00000032 decode
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:116    .text:0000007a password
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:240    .text:0000010e checkPassword
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:296    .text:0000014c open
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:344    .text:0000016a readpassEEPROM
+                            *COM*:00000004 setpass
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:391    .text:00000190 savepassEEPROM
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:434    .text:000001be main
+                            *COM*:00000004 enterpass
+C:\Users\Lisek\AppData\Local\Temp/ccXz3cHv.s:554    .data:00000000 changepass
+
+UNDEFINED SYMBOLS
+__eerd_byte_m8
+__eewr_byte_m8
+__do_copy_data
+__do_clear_bss
